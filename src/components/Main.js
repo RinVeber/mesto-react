@@ -11,12 +11,12 @@ function Main(props) {
 
   React.useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
-      .then(([userData, data]) => {
+      .then(([userData, card]) => {
         setUserName(userData.name);
         setUserAbout(userData.about);
         setUserAvatar(userData.avatar);
 
-        setCards(data.map(item => ({
+        setCards(card.map(item => ({
           image: item.link,
           alt: item.name,
           likes: item.likes,
