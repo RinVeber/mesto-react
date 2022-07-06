@@ -21,6 +21,7 @@ function Main(props) {
           alt: item.name,
           likes: item.likes,
           id: item._id,
+          title: item.name,
         })));
       })
       .catch((error) => {
@@ -32,11 +33,11 @@ function Main(props) {
     <div className="content">
       <section className="profile">
           <div className="profile__avatar-overlay" onClick={props.onEditAvatar}></div>
-          <img
+          {userAvatar && (  <img
             src={userAvatar}
-            alt="Подождите, загружается..."
+            alt="Аватар пользователя"
             className="profile__avatar"
-          />
+          />)}
         
         <div className="profile__info">
         <h1 className="profile__name">{userName}</h1>
