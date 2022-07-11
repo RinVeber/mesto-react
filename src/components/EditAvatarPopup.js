@@ -12,15 +12,13 @@ function EditAvatarPopup({
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    onUpdateAvatar(
-      {
-        avatar: ref.current.value,
-      },
-      () => {
-        ref.current.value = "";
-      }
-    );
+    onUpdateAvatar({
+      avatar: ref.current.value,
+    });
   }
+  React.useEffect(() => {
+    ref.current.value = "";
+  }, [isOpen]);
 
   return (
     <PopupWithForm

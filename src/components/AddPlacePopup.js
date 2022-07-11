@@ -15,17 +15,19 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onAddPlace(
-      {
-        name: name,
-        link: link,
-      },
-      () => {
-        setName("");
-        setLink("");
-      }
-    );
+    onAddPlace({
+      name: name,
+      link: link,
+    });
   }
+
+  React.useEffect(() => {
+    if (isOpen) {
+      setName("");
+      setLink("");
+    }
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       isOpen={isOpen}

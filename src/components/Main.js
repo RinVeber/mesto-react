@@ -43,16 +43,14 @@ function Main({
 
       <section className="elements">
         <ul className="elements__list">
-          {cards.map((item, index) => (
-            <li key={index}>
-              <Card
-                key={item.id}
-                card={item}
-                onCardClick={onCardClick}
-                onCardLike={onCardLike}
-                onCardDelete={onCardDelete}
-              />{" "}
-            </li>
+          {cards.map((item) => (
+            <Card
+              key={item._id}
+              card={item}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
           ))}
         </ul>
       </section>

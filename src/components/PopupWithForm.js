@@ -1,6 +1,6 @@
 import React from "react";
 
-function PopupWithForm({ name, isOpen, onClose, buttonText, children, title }) {
+function PopupWithForm({ name, isOpen, onClose, buttonText, children, title, onSubmit }) {
   return (
     <section
       className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}
@@ -23,6 +23,7 @@ function PopupWithForm({ name, isOpen, onClose, buttonText, children, title }) {
           className={`popup__form popup__form_type_${name}`}
           name={`popup_form_${name}`}
           noValidate
+          onSubmit={onSubmit}
         >
           <h2 className="popup__title">{title}</h2>
           {children}
