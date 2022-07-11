@@ -1,61 +1,42 @@
 import React from 'react';
 import {api} from '../utils/api.js';
 import Card from '../components/Card.js';
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main(props) {
+function Main({cards, onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete}) {
 
-  const [userName, setUserName] = React.useState('');
-  const [userAbout , setUserAbout] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    Promise.all([api.getProfile(), api.getInitialCards()])
-      .then(([userData, card]) => {
-        setUserName(userData.name);
-        setUserAbout(userData.about);
-        setUserAvatar(userData.avatar);
-
-        setCards(card.map(item => ({
-          image: item.link,
-          alt: item.name,
-          likes: item.likes,
-          id: item._id,
-          title: item.name,
-        })));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [])
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <div className="content">
       <section className="profile">
-          <div className="profile__avatar-overlay" onClick={props.onEditAvatar}></div>
-          {userAvatar && (  <img
-            src={userAvatar}
-            alt="Аватар пользователя"
+          <div className="profile__avatar-overlay" onClick={onEditAvatar}></div>
+          {currentUser.avatar && (  <img
+            src={currentUser.avatar}
+            alt={currentUser.name}
             className="profile__avatar"
           />)}
         
         <div className="profile__info">
-        <h1 className="profile__name">{userName}</h1>
-          <button className="profile__edit" onClick={props.onEditProfile} type="button"></button>
-          <p className="profile__description">{userAbout}</p>
+        <h1 className="profile__name">{currentUser.name}</h1>
+          <button className="profile__edit" onClick={onEditProfile} type="button"></button>
+          <p className="profile__description">{currentUser.about}</p>
         </div>
-        <button className="profile__add" onClick={props.onAddPlace} type="button"></button>
+        <button className="profile__add" onClick={onAddPlace} type="button"></button>
       </section>
         
       <section className="elements">
-       
         <ul className="elements__list">
-        {cards.map((item) => (
+        {cards.map((item, index) => (
+          <li key={index}>
         <Card 
+
         key = {item.id} 
-        card = {item} 
-        onCardClick = {props.onCardClick} 
-        />))
+        card = {item}
+        onCardClick = {onCardClick}
+        onCardLike={onCardLike}
+        onCardDelete={onCardDelete}
+        /> </li>))
         }
         </ul>
       </section>
