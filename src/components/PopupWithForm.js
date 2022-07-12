@@ -4,9 +4,7 @@ function PopupWithForm({ name, isOpen, onClose, buttonText, children, title, onS
   return (
     <section
       className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}
-      onClick={() => {
-        onClose();
-      }}
+      onClick={onClose}
     >
       <div
         className={`popup__window popup__window_type-${name}`}
